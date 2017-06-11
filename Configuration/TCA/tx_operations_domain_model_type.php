@@ -5,8 +5,6 @@ if (!defined ('TYPO3_MODE')) {
 
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 
-$iconPath = ExtensionManagementUtility::extRelPath('operations');
-
 ExtensionManagementUtility::addToInsertRecords('tx_operations_domain_model_type');
 
 $tx_operations_domain_model_type = array(
@@ -31,7 +29,7 @@ $tx_operations_domain_model_type = array(
                         'endtime' => 'endtime',
                 ),
                 'searchFields' => 'uid,title',
-                'iconfile' => $iconPath . '/Resources/Public/Icons/tx_operations_domain_model_type.png',
+                'iconfile' => 'EXT:operations/Resources/Public/Icons/tx_operations_domain_model_type.png',
                 'typeicon_classes' => \KN\Operations\Utility\Div::getTypeIconClasses('ext-operations-type')
         ),
 	'interface' => array(

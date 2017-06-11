@@ -5,9 +5,7 @@ if (!defined ('TYPO3_MODE')) {
 
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 
-// get first main part of TYPO3 version number
-$currentTypo3Version = \KN\Operations\Utility\Div::getPartOfTypo3Version();
-$iconPath = ExtensionManagementUtility::extRelPath('operations');
+//$iconPath = ExtensionManagementUtility::extRelPath('operations');
 
 ExtensionManagementUtility::addToInsertRecords('tx_operations_domain_model_assistance');
 
@@ -33,7 +31,7 @@ $tx_operations_domain_model_assistance = array(
                         'endtime' => 'endtime',
                 ),
                 'searchFields' => 'title,description,link,',
-                'iconfile' => $iconPath . '/Resources/Public/Icons/tx_operations_domain_model_assistance.png',
+                'iconfile' => 'EXT:operations/Resources/Public/Icons/tx_operations_domain_model_assistance.png',
                 'typeicon_classes' => \KN\Operations\Utility\Div::getTypeIconClasses('ext-operations-assistance')
         ),
 	'interface' => array(
