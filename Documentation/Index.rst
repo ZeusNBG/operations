@@ -15,43 +15,43 @@ operations
 .. only:: html
 
 	:Classification:
-		operations
+    		operations
 
-	:Version:
-		1.3.6
+    	:Version:
+    		|release|
 
 	:Language:
-		en
+    		en
 
-	:Description:
-		Manage (firefighter) operations with detailed reports, images used resources or vehicles, google map view for locations and more. Slider and Lightbox for images. This extension was build to manage firefighter operations from "Freiwillige Feuerwehr Thale". Possibly to use it for other reportable events like THW and so on.
+    	:Description:
+    		Manage (firefighter) operations with detailed reports, images used resources or vehicles, google map view for locations and more. Slider and Lightbox for images. This extension was build to manage firefighter operations from "Freiwillige Feuerwehr Thale". Possibly to use it for other reportable events like THW and so on.
 
-	:Keywords:
-		operations,firefighter,fw,thw,fire run,fire brigade,reports
+    	:Keywords:
+    		operations,firefighter,fw,thw,fire run,fire brigade,reports
 
-	:Copyright:
-		2014
+    	:Copyright:
+    		2014
 
-	:Author:
-		Karsten Nowak
+    	:Author:
+    		Karsten Nowak
 
-	:Email:
-		captnnowi@gmx.de
+    	:Email:
+    		captnnowi@gmx.de
 
-	:License:
-		This document is published under the Open Content License
-		available from http://www.opencontent.org/opl.shtml
+    	:License:
+    		This document is published under the Open Content License
+    		available from http://www.opencontent.org/opl.shtml
 
 	:Rendered:
-		|today|
+    		|today|
 
 	The content of this document is related to TYPO3,
 	a GNU/GPL CMS/Framework available from `www.typo3.org <http://www.typo3.org/>`_.
 
-	This Extension works with TYPO3 6.2.x and TYPO3 7.6.x!
-	For bugs or ideas have a look at `forge.typo3.org <http://forge.typo3.org/projects/extension-operations>`_.
+	This Extension works with TYPO3 8.7!
+	Older versions and place to go for ideas `Github Repo <https://github.com/kanow/operations>`_.
 
-	Big thanks to `undkonsorten - Die Berliner Internetagentur <http://www.undkonsorten.com>`_ for helping hands and answers on questions.
+	Big thanks to `undkonsorten - Die Berliner Internetagentur <http://www.undkonsorten.com>`_ for helping hands if they needed.
 
 	Icons for data in backend:
 		- Icon for operation is designed by `Julián Humberto Corrales <http://www.thenounproject.com/jcorralesv>`_
@@ -67,10 +67,11 @@ operations
 .. toctree::
 	:maxdepth: 5
 	:titlesonly:
-	:glob:
+    	:glob:
 
-	Introduction/Index
-	Screenshots/Index
-	UsersManual/Index
-	AdministratorManual/Index
-	Changelog/Index
+    	Introduction/Index
+    	Screenshots/Index
+    	UsersManual/Index
+    	AdministratorManual/Index
+    	DeveloperManual/Index
+    	Changelog/Index
