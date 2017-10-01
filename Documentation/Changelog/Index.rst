@@ -21,6 +21,10 @@ Changelog
 		Changes:
 
  - :Version:
+		2.0.2
+  :Changes:
+		Clean up code some bugfixing. New feature filter operations by searchstring.
+ - :Version:
 		2.0.0
   :Changes:
 		TYPO3 8.7 compatibility, clean up code. TYPO3 8.7 is now minimum requirement

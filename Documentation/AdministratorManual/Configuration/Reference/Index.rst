@@ -144,6 +144,14 @@ Settings for list view
    :Default:
 		0
  - :Property:
+		searchFields
+   :Type:
+		string
+   :Description:
+		Define fields should be used for filtering by a search word/string
+   :Default:
+		title,teaser,location
+ - :Property:
 		showImgInList
    :Type:
 		boolean
