@@ -32,6 +32,7 @@ plugin.tx_operations {
 	}
 	settings {
 		overrideFlexformSettingsIfEmpty = itemsPerPage,showImgInList,listImgWidth,listImgHeight,singleImgWidth,singleImgHeight,cropTeaser,hideFilter
+		searchFields = title,teaser,location
 		operationSinglePid = {$plugin.tx_operations.settings.operationSinglePid}
 		vehicleSinglePid = {$plugin.tx_operations.settings.vehicleSinglePid}
 		resourceSinglePid = {$plugin.tx_operations.settings.resourceSinglePid}

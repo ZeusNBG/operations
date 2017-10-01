@@ -24,6 +24,7 @@ namespace KN\Operations\Domain\Repository;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  *
@@ -44,15 +45,13 @@ class OperationRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 	    'begin' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING,
 	);
 
-
 	/**
 	* Returns the objects of this repository matching the demand
 	*
 	* @param \KN\Operations\Domain\Model\OperationDemand $demand
 	* @param array $settings
-	* @return Tx_Extbase_Persistence_QueryResultInterface
+	* @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface
 	*/
-
 	public function findDemanded(\KN\Operations\Domain\Model\OperationDemand $demand, $settings) {
 		$query = $this->generateQuery($demand, $settings);
 		return $query->execute();
@@ -103,7 +102,7 @@ class OperationRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 	 * Returns an array of constraints created from a given demand object.
 	 *
 	 * @param \TYPO3\CMS\Extbase\Persistence\QueryInterface $query
-	 * @param \KN\Operation\Domain\Model\OperationDemand $demand
+	 * @param \KN\Operations\Domain\Model\OperationDemand $demand
 	 * @param array $settings
 	 * @return array<Tx_Extbase_Persistence_QOM_Constraint>
 	 */
@@ -111,21 +110,39 @@ class OperationRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 
 		$constraints = array();
 
+        // begin
 		$fromTimestamp = mktime(0,0,0,1,1,$demand->getBegin());
 		$toTimestamp = mktime(23,59,59,12,31,$demand->getBegin());
-
 		if($demand->getBegin()) {
 			$constraints[] = $query->logicalAnd(
 				$query->greaterThanOrEqual('begin', $fromTimestamp),
 				$query->lessThanOrEqual('begin', $toTimestamp)
 			);
 		}
-
+        // type
 		if($demand->getType()){
 			$constraints[] = $query->contains('type',$demand->getType());
 		}
+        // search
+		if(!empty($demand->getSearchString())){
+            $searchSubject = $demand->getSearchstring();
+            $searchFields = GeneralUtility::trimExplode(',', $settings['searchFields'], true);
+            $searchConstraints = [];
+            if (count($searchFields) === 0) {
+                throw new \UnexpectedValueException('No search fields in TypoScript setup defined', 1506861158);
+            }
+            foreach ($searchFields as $field) {
+                if (!empty($searchSubject)) {
+                    $searchConstraints[] = $query->like($field, '%' . $searchSubject . '%');
+                }
+            }
+            if (count($searchConstraints)) {
+                $constraints[] = $query->logicalOr($searchConstraints);
+            }
+        }
 
-		if($settings['showMap']) {
+        // map constraints
+        if($settings['showMap']) {
 			$constraints[] = $query->logicalAnd(
 				$query->greaterThan('latitude',0),
 				$query->greaterThan('longitude',0)
