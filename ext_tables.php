@@ -11,10 +11,16 @@ use TYPO3\CMS\Core\Imaging\IconProvider\BitmapIconProvider;
 	'List',
 	'Operations'
 );
+\TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
+	'KN.'.$_EXTKEY,
+	'Stats',
+	'Operations Statistics'
+);
 
-$extensionName = strtolower(GeneralCoreUtility::underscoredToUpperCamelCase($_EXTKEY));
-$pluginName = strtolower('List');
-$pluginSignature = $extensionName.'_'.$pluginName;
+$pluginSignature = [
+    'list' => 'operations_list',
+    'stats' => 'operations_stats'
+];
 
 $iconRegistry = GeneralCoreUtility::makeInstance(\TYPO3\CMS\Core\Imaging\IconRegistry::class);
 // register wizard icon for operation
@@ -55,9 +61,13 @@ $iconRegistry->registerIcon(
 );
 
 
-$TCA['tt_content']['types']['list']['subtypes_excludelist'][$pluginSignature] = 'layout,select_key,pages';
-$TCA['tt_content']['types']['list']['subtypes_addlist'][$pluginSignature] = 'pi_flexform';
-ExtensionManagementUtility::addPiFlexFormValue($pluginSignature, 'FILE:EXT:'.$_EXTKEY . '/Configuration/FlexForms/flexform_list.xml');
+$TCA['tt_content']['types']['list']['subtypes_excludelist'][$pluginSignature['stats']] = 'pages,recursive';
+$TCA['tt_content']['types']['list']['subtypes_addlist'][$pluginSignature['stats']] = 'pi_flexform';
+ExtensionManagementUtility::addPiFlexFormValue($pluginSignature['stats'], 'FILE:EXT:'.$_EXTKEY . '/Configuration/FlexForms/flexform_stats.xml');
+
+$TCA['tt_content']['types']['list']['subtypes_excludelist'][$pluginSignature['list']] = 'layout,select_key,pages';
+$TCA['tt_content']['types']['list']['subtypes_addlist'][$pluginSignature['list']] = 'pi_flexform';
+ExtensionManagementUtility::addPiFlexFormValue($pluginSignature['list'], 'FILE:EXT:'.$_EXTKEY . '/Configuration/FlexForms/flexform_list.xml');
 
 ExtensionManagementUtility::addStaticFile($_EXTKEY, 'Configuration/TypoScript', 'Operations');
 
