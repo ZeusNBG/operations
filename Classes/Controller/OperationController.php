@@ -130,6 +130,27 @@ class OperationController extends \KN\Operations\Controller\BaseController {
 	}
 
 	/**
+     * action stats
+     *
+     * @param \KN\Operations\Domain\Model\OperationDemand $demand
+     * @return void
+     */
+    public function statsAction(\KN\Operations\Domain\Model\OperationDemand $demand = NULL) {
+        $demand = $this->updateDemandObjectFromSettings($demand, $this->settings);
+//        $operations = $this->operationRepository->findDemanded($demand, $this->settings);
+        $types = $this->typeRepository->findAll();
+        $years = $this->generateYears();
+
+        $operationsGroupedByYear = $this->operationRepository->countGroupedByYear($demand);
+
+        $this->view->assign('operationsGroupedByYear', $operationsGroupedByYear);
+        $this->view->assign('count', $this->operationRepository->countDemanded($demand));
+//        $this->view->assign('types', $types);
+//        $this->view->assign('begin',$years);
+//        $this->view->assign('operations', $operations);
+    }
+
+	/**
 	 * Update demand with current settings, if not exists it creates one
 	 *
 	 * @param KN\Operation\Domain\Model\OperationDemand
@@ -155,7 +176,6 @@ class OperationController extends \KN\Operations\Controller\BaseController {
 			->groupBy('year')
 			->add('orderby','ORDER BY year DESC LIMIT 0, '.$lastYears,true)
 			->execute()->fetchAll();
-
         foreach ($rows as $year) {
 	      $years[$year['year']] = $year['year'];
 	  	}
