@@ -36,7 +36,6 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 class OperationRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 
-
 	/**
 	* default ordering
 	*
@@ -138,7 +137,6 @@ class OperationRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 		} else {
 			$query->setLimit((int) $limit);
 		}
-		//\TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($query);
 		return $query;
 	}
 
