@@ -82,3 +82,7 @@ table {
 table td {
     border:1px solid #ccc;
 }
+.chart-container {
+    width:400px;
+    height:250px;
+}
