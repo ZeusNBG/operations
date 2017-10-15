@@ -35,6 +35,7 @@ namespace KN\Operations\Controller;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Database\Query\QueryBuilder;
+use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 
 class OperationController extends \KN\Operations\Controller\BaseController {
 
@@ -138,10 +139,24 @@ class OperationController extends \KN\Operations\Controller\BaseController {
     public function statsAction(\KN\Operations\Domain\Model\OperationDemand $demand = NULL) {
         $demand = $this->updateDemandObjectFromSettings($demand, $this->settings);
 //        $operations = $this->operationRepository->findDemanded($demand, $this->settings);
-        $types = $this->typeRepository->findAll();
+//        $groupedData = [];
+//
+////        $query = $this->createQuery();
+//        $types = $this->typeRepository->findAll();
+//        DebuggerUtility::var_dump($types);
+////
+//        foreach ($types as $type) {
+////            DebuggerUtility::var_dump($type->getUid());
+//            $groupedData[$type->getTitle()] = $this->operationRepository->countByType($type);
+//        }
         $years = $this->generateYears();
+        $types = $this->typeRepository->findAll()->toArray();
+//                DebuggerUtility::var_dump($types);
 
-        $operationsGroupedByYear = $this->operationRepository->countGroupedByYear($demand);
+
+        $operationsGroupedByYear = $this->operationRepository->countGroupedByYear();
+        $operationsGroupedByYearAndType = $this->operationRepository->countGroupedByYearAndType($years,$types);
+//        DebuggerUtility::var_dump($operationsGroupedByYearAndType);
 
         $this->view->assign('operationsGroupedByYear', $operationsGroupedByYear);
         $this->view->assign('count', $this->operationRepository->countDemanded($demand));
@@ -182,4 +197,6 @@ class OperationController extends \KN\Operations\Controller\BaseController {
 
 		return $years;
 	}
+
+
 }
