@@ -24,6 +24,10 @@ namespace KN\Operations\Domain\Repository;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+use TYPO3\CMS\Core\Database\ConnectionPool;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Database\Query\QueryBuilder;
+use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 
 /**
  *
@@ -47,6 +51,18 @@ class TypeRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 		$query = $this->createQuery();
 		return $query->execute();
 	}
+	public function findAllTypesWithTitle()
+    {
+        $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)
+            ->getQueryBuilderForTable('tx_operations_domain_model_type');
+        $result = $queryBuilder
+            ->select('title')
+            ->from('tx_operations_domain_model_type')
+            ->execute()->fetchAll();
+        return $result;
+        /** @var TYPE_NAME $result */
+//        DebuggerUtility::var_dump($result, __METHOD__);
+    }
 
 
 }
