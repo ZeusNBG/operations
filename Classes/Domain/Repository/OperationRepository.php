@@ -120,10 +120,19 @@ class OperationRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
             }
         }
 
-        // sort array by key (uid)
-        ksort($resultWithEmptyYears);
+        // new array for sorted years in every single row
+        $resultWithEmptyYearsSorted = [];
+        foreach($resultWithEmptyYears as $key => $value) {
+            ksort($value['years']);
+            $resultWithEmptyYearsSorted[$key] = array(
+                'title' => $value['title'],
+                'years' => $value['years']
+            );
+        }
+        // sort by array key (typeUid)
+        ksort($resultWithEmptyYearsSorted);
 
-        return $resultWithEmptyYears;
+        return $resultWithEmptyYearsSorted;
     }
 
     /**
