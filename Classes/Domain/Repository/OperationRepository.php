@@ -129,56 +129,13 @@ class OperationRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
                 'years' => $value['years']
             );
         }
+        unset($resultWithEmptyYears);
+
         // sort by array key (typeUid)
         ksort($resultWithEmptyYearsSorted);
 
         return $resultWithEmptyYearsSorted;
     }
-
-//    /**
-//     * Counts all available operations grouped by year
-//     *
-//     * @return array
-//     */
-//    public function countGroupedByYear() {
-//        /** @var QueryBuilder $queryBuilder */
-//        $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)
-//            ->getQueryBuilderForTable('tx_operations_domain_model_operation');
-//
-//        $statement = $queryBuilder
-//            ->add('select','COUNT(*) as count, FROM_UNIXTIME(begin, \'%Y\') as year',true)
-//            ->from('tx_operations_domain_model_operation')
-//            ->groupBy('year')
-//            ->orderBy('year',ASC)
-//            ->execute();
-//        $result = $statement->fetchAll();
-//
-//        return $result;
-//    }
-
-
-//	/**
-//	 * Counts all available operations grouped by a property
-//	 *
-//     * @todo remove or clean up this function
-//     * @param string $property
-//	 * @param integer $count
-//     * @return array
-//	 */
-//	public function countGroupedBy($demand, $property) {
-//        $groupedCounted = [];
-//
-//        /** @var QueryBuilder $queryBuilder */
-//        $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)
-//            ->getQueryBuilderForTable('tx_operations_domain_model_operation');
-//        $rows = $queryBuilder
-//            ->add('select','COUNT(*) as count, FROM_UNIXTIME(begin, \'%Y\') as year',true)
-//            ->from('tx_operations_domain_model_operation')
-//            ->groupBy('year')
-//            ->execute()->fetchAll();
-//
-//        return $groupedCounted;
-//	}
 
 	/**
 	 * Generates the query
