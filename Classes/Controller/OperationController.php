@@ -104,20 +104,20 @@ class OperationController extends \KN\Operations\Controller\BaseController {
 	 * Initialize method for special action
 	 */
 	 public function initializeSearchAction() {
-			if ($this->arguments->hasArgument('demand')) {
-				if(function_exists('injectPropertyMappingConfiguration')) {
-					$mvcPropertyMappingConfiguration = \TYPO3\CMS\Extbase\Property\PropertyMappingConfigurationBuilder::build('TYPO3\\CMS\\Extbase\\Mvc\\Controller\\MvcPropertyMappingConfiguration');
-					$this->arguments->getArgument('demand')->injectPropertyMappingConfiguration($mvcPropertyMappingConfiguration);
-					$propertyMappingConfiguration = $this->arguments->getArgument('demand')->getPropertyMappingConfiguration();
-					$propertyMappingConfiguration->forProperty('*')->allowAllProperties();
-					$propertyMappingConfiguration->forProperty('*')->allowCreationForSubProperty('*');
-					$propertyMappingConfiguration->forProperty('*')->forProperty('*')->allowAllProperties();
-				} else {
-					$propertyMappingConfiguration = $this->arguments->getArgument('demand')->getPropertyMappingConfiguration();
-					$propertyMappingConfiguration->allowAllProperties();
-					$propertyMappingConfiguration->setTypeConverterOption('TYPO3\CMS\Extbase\Property\TypeConverter\PersistentObjectConverter', \TYPO3\CMS\Extbase\Property\TypeConverter\PersistentObjectConverter::CONFIGURATION_CREATION_ALLOWED, TRUE);
-				}
-			}
+        if ($this->arguments->hasArgument('demand')) {
+            if(function_exists('injectPropertyMappingConfiguration')) {
+                $mvcPropertyMappingConfiguration = \TYPO3\CMS\Extbase\Property\PropertyMappingConfigurationBuilder::build('TYPO3\\CMS\\Extbase\\Mvc\\Controller\\MvcPropertyMappingConfiguration');
+                $this->arguments->getArgument('demand')->injectPropertyMappingConfiguration($mvcPropertyMappingConfiguration);
+                $propertyMappingConfiguration = $this->arguments->getArgument('demand')->getPropertyMappingConfiguration();
+                $propertyMappingConfiguration->forProperty('*')->allowAllProperties();
+                $propertyMappingConfiguration->forProperty('*')->allowCreationForSubProperty('*');
+                $propertyMappingConfiguration->forProperty('*')->forProperty('*')->allowAllProperties();
+            } else {
+                $propertyMappingConfiguration = $this->arguments->getArgument('demand')->getPropertyMappingConfiguration();
+                $propertyMappingConfiguration->allowAllProperties();
+                $propertyMappingConfiguration->setTypeConverterOption('TYPO3\CMS\Extbase\Property\TypeConverter\PersistentObjectConverter', \TYPO3\CMS\Extbase\Property\TypeConverter\PersistentObjectConverter::CONFIGURATION_CREATION_ALLOWED, TRUE);
+            }
+        }
 	 }
 
 	/**
@@ -133,12 +133,9 @@ class OperationController extends \KN\Operations\Controller\BaseController {
 	/**
      * action stats
      *
-     * @param \KN\Operations\Domain\Model\OperationDemand $demand
      * @return void
      */
-    public function statsAction(\KN\Operations\Domain\Model\OperationDemand $demand = NULL) {
-        $demand = $this->updateDemandObjectFromSettings($demand, $this->settings);
-
+    public function statsAction() {
         $years = $this->generateYears();
         $types = $this->typeRepository->findAll()->toArray();
 
@@ -146,7 +143,6 @@ class OperationController extends \KN\Operations\Controller\BaseController {
 
         $this->view->assignMultiple(
             array(
-                'operationsGroupedByYear' => $operationsGroupedByYear,
                 'operationsGroupedByYearAndType' => $operationsGroupedByYearAndType,
                 'count' => $this->operationRepository->countDemanded($demand),
                 'years' => $years
@@ -183,9 +179,7 @@ class OperationController extends \KN\Operations\Controller\BaseController {
         foreach ($rows as $year) {
 	      $years[$year['year']] = $year['year'];
 	  	}
-
 		return $years;
 	}
-
 
 }

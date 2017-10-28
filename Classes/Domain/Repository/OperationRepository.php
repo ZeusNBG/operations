@@ -75,7 +75,6 @@ class OperationRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
      * @return array
      */
     public function countGroupedByYearAndType($years,$types) {
-
         /** @var QueryBuilder $queryBuilder */
         $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)
             ->getQueryBuilderForTable('tx_operations_domain_model_operation');
@@ -175,7 +174,6 @@ class OperationRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 	 * @return array<Tx_Extbase_Persistence_QOM_Constraint>
 	 */
 	protected function createConstraintsFromDemand(\TYPO3\CMS\Extbase\Persistence\QueryInterface $query, \KN\Operations\Domain\Model\OperationDemand $demand, $settings) {
-
 		$constraints = array();
 
         // begin
@@ -208,7 +206,6 @@ class OperationRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
                 $constraints[] = $query->logicalOr($searchConstraints);
             }
         }
-
         // map constraints
         if($settings['showMap']) {
 			$constraints[] = $query->logicalAnd(
