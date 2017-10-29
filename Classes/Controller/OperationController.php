@@ -144,7 +144,6 @@ class OperationController extends \KN\Operations\Controller\BaseController {
         $this->view->assignMultiple(
             array(
                 'operationsGroupedByYearAndType' => $operationsGroupedByYearAndType,
-                'count' => $this->operationRepository->countDemanded($demand),
                 'years' => $years
             )
         );
