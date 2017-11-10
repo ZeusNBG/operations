@@ -32,8 +32,10 @@
 	</f:if>
 
 	<f:if condition="{operation.longitude}">
-		<o:mapsingle object="{operation}" as="item" settings="{settings}">{item.begin -> f:format.date(format:'d.m.Y, H:i \U\h\r')}<br />{item.location}</o:mapsingle>
-		<div id="map-canvas" class="map">
+		<f:format.raw>
+			<o:mapsingle object="{operation}" as="item" settings="{settings}">{item.begin -> f:format.date(format:'d.m.Y, H:i \U\h\r')}<br />{item.location}</o:mapsingle>
+		</f:format.raw>
+			<div id="map-canvas" class="map">
 			<noscript><p><f:translate key="map.noscript">Please activate javascript for map</f:translate></p></noscript>
 		</div>
 	</f:if>
